@@ -21,7 +21,7 @@ module Pixiv
     # @return [Array<String>]
     lazy_attr_reader(:original_image_urls) {
       illust? ? [original_image_url]
-              : (0...num_pages).map {|n| image_url_components.join("_p#{n}") }
+              : (0...num_pages).map {|n| image_url_components[0] + 'img-original/img/' + image_url_components[1] + n.to_s + image_url_components[2] }
     }
     # @return [String]
     lazy_attr_reader(:original_image_referer) { ROOT_URL + '/' + at!('//div[@class="works_display"]/a')['href'] }
