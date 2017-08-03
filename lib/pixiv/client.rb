@@ -42,7 +42,10 @@ module Pixiv
     # @param [String] password
     def login(pixiv_id, password)
       doc = agent.get("https://accounts.pixiv.net/login?lang=ja&source=pc&view_type=page")
-      return if doc && doc.body =~ /logout/
+      if doc && doc.body =~ /logout/
+        @member_id = member_id_from_mypage(doc)
+        return
+      end
       form = doc.forms_with(action: '/login').first
       puts doc.body and raise Error::LoginFailed, 'login form is not available' unless form
       form.pixiv_id = pixiv_id
