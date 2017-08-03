@@ -12,7 +12,7 @@ module Pixiv
     }
     # @return [Array<Hash{Symbol=>Object}, nil>]
     lazy_attr_reader(:page_hashes) {
-      search!('li[id^="li_"]').map {|n| hash_from_list_item(n) }
+      search!('li.image-item').map {|n| hash_from_list_item(n) }
     }
 
     # @deprecated Use {#total_count} instead.
