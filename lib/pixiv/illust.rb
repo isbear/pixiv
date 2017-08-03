@@ -96,7 +96,11 @@ module Pixiv
     end
 
     def image_url_components
-      @image_url_components ||= medium_image_url.match(%r{^([^/]+//[^/]+/).+img/(.+p)0_m[^.]+(\.\w+(?:\?\d+)?)$}).to_a[1, 3]
+      if manga?
+        @image_url_components ||= medium_image_url.match(%r{^([^/]+//[^/]+/).+img/(.+p)0_m[^.]+(\.\w+(?:\?\d+)?)$}).to_a[1, 3]
+      else
+        @image_url_components ||= at!(".original-image").attributes['data-src'].text.match(%r{^([^/]+//[^/]+/).+img/(.+p)0(\.\w+(?:\?\d+)?)$}).to_a[1, 3]
+      end
     end
 
     def is_deleted?
