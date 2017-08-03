@@ -30,7 +30,7 @@ module Pixiv
     }
     # @return [Integer]
     lazy_attr_reader(:member_id) {
-      doc.body[/pixiv\.context\.userId = '(\d+)'/, 1].to_i
+      doc.body[/pixiv\.context\.userId = (['"])(\d+)\1/, 2].to_i
     }
 
     # @return [String]
