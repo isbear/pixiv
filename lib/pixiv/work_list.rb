@@ -29,6 +29,7 @@ module Pixiv
     # @return [Hash{Symbol=>Object}] illust_hash
     def hash_from_list_item(node)
       return nil if node.at('img[data-src*="limit_unknown_s.png"]')
+      return nil if node.at('img[data-src*="limit_mypixiv_s.png"]')
       illust_node = node.at('a')
       illust_id = illust_node['href'][/illust_id=(\d+)/, 1].to_i
       hash = {
