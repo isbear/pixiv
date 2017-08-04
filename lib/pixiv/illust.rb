@@ -78,9 +78,11 @@ module Pixiv
     # @return [String]
     def url; self.class.url(illust_id) end
     # @return [Boolean]
-    def illust?; !manga? end
+    def illust?; !(manga? or gif?) end
     # @return [Boolean]
     def manga?; !!num_pages end
+    # @return [Boolean]
+    def gif?; doc.at('[@class="_ugoku-illust-player-container"]').nil?.! end
 
     # @return [Boolean]
     lazy_attr_reader(:deleted?) { is_deleted? }
